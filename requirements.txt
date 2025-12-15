@@ -1,0 +1,20 @@
+# Core API dependencies
+fastapi==0.124.4
+uvicorn==0.38.0
+python-multipart==0.0.20
+
+# Machine Learning
+tensorflow==2.16.2
+numpy==1.26.4
+pillow==12.0.0
+
+# Data handling
+pydantic==2.12.5
+pydantic_core==2.41.5
+
+# HTTP and networking
+httpx==0.28.1
+requests==2.32.5
+
+# Core Python utilities
+typing_extensions==4.15.0

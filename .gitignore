@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data
+dataset/
+data/
+*.zip
+
+# OS
+.DS_Store
+
+# Cache
+.cache/
