@@ -326,7 +326,7 @@ pytest --cov=app tests/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+We welcome contributions!
 
 ### **How to Contribute**
 
@@ -343,12 +343,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - 📚 Documentation updates
 - 🧪 Test coverage expansion
 - 🌐 Internationalization
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -372,15 +366,6 @@ This application is designed for **research and educational purposes only**. It 
 - **Dataset**: Brain Tumor Classification Dataset
 - **Framework**: TensorFlow and Keras teams
 - **API**: FastAPI framework
-- **Community**: Open source contributors
-
----
-
-## 📞 Contact & Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/neuroscan-ai/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/neuroscan-ai/discussions)
-- **Email**: your.email@example.com
 
 ---
 
