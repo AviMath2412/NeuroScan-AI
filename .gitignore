@@ -17,3 +17,20 @@ data/
 
 # Cache
 .cache/
+# Large model files (use Git LFS or download separately)
+*.h5
+*.keras
+best_model*
+bestmodel*
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local

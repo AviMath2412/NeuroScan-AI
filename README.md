@@ -118,12 +118,22 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### **3. Run Application**
+### **3. Download Model**
+```bash
+# Option 1: Use download script
+python download_model.py
+
+# Option 2: Manual download
+# Go to: https://github.com/AviMath2412/NeuroScan-AI/releases
+# Download best_model.h5 and place in project root
+```
+
+### **4. Run Application**
 ```bash
 uvicorn app.main:app --reload
 ```
 
-### **4. Access Application**
+### **5. Access Application**
 - **Web Interface**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
 - **Health Check**: http://localhost:8000/health

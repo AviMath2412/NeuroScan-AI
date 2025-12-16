@@ -21,7 +21,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = load_model("best_model.h5")
+# Load model with fallback options
+model_files = ["best_model.h5", "best_model_improved.keras", "bestmodel.h5"]
+model = None
+
+for model_file in model_files:
+    if os.path.exists(model_file):
+        try:
+            model = load_model(model_file)
+            print(f"✅ Loaded model: {model_file}")
+            break
+        except Exception as e:
+            print(f"❌ Failed to load {model_file}: {e}")
+            continue
+
+if model is None:
+    print("⚠️ No model loaded. API will run in demo mode.")
+    # You can download the model from: [add your model download link]
 
 @app.get("/")
 def serve_ui():
@@ -34,6 +50,12 @@ def health_check():
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
+        if model is None:
+            return {
+                "error": "Model not loaded. Please download the model file and place it in the root directory.",
+                "instructions": "Download model from releases page and place as 'best_model.h5'"
+            }
+            
         image_bytes = await file.read()
         img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
 
