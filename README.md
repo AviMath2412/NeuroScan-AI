@@ -29,7 +29,6 @@
 - [📁 Project Structure](#-project-structure)
 - [🛠️ Development](#️-development)
 - [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
 - [⚠️ Disclaimer](#️-disclaimer)
 
 ---
