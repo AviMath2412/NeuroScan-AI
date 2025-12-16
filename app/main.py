@@ -7,9 +7,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
-from tensorflow.keras.models import load_model
 
 from app.utils.preprocess import preprocess_image
+
+
+def load_tf_model(model_path: str):
+	try:
+		from tensorflow.keras.models import load_model as tf_load_model  # type: ignore
+	except Exception as err:
+		print(f'❌ TensorFlow import failed: {err}')
+		return None
+	try:
+		return tf_load_model(model_path)
+	except Exception as err:
+		print(f'❌ Failed to load {model_path}: {err}')
+		return None
 
 app = FastAPI(title='Brain Tumor Detection API')
 
@@ -34,12 +46,10 @@ model = None
 
 for model_file in model_files:
 	if os.path.exists(model_file):
-		try:
-			model = load_model(model_file)
+		model = load_tf_model(model_file)
+		if model is not None:
 			print(f'✅ Loaded model: {model_file}')
 			break
-		except Exception as err:
-			print(f'❌ Failed to load {model_file}: {err}')
 
 if model is None:
 	print('⚠️ No model loaded. API will run in demo mode.')
