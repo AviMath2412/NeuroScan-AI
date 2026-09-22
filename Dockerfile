@@ -1,29 +1,17 @@
-FROM python:3.10-slim
-
-# Prevent Python from writing .pyc files and enable unbuffered output
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
+FROM node:18-alpine
 WORKDIR /app
 
-# Install system dependencies required for OpenCV
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1 \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+# Copy package files and install ONLY production dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Install Python requirements
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the pre-built standalone files from your Mac
+COPY .next/standalone ./
+COPY public ./public
+COPY .next/static ./.next/static
 
-# Copy application files, model weights, and inference logic
-COPY main.py .
-COPY gradcam_inference.py .
-COPY evaluate_model.py .
-COPY best_model.pth .
+EXPOSE 3000
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
-# Expose backend port
-EXPOSE 8000
-
-# Start FastAPI application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["node", "server.js"]
