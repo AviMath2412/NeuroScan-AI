@@ -91,23 +91,24 @@ Evaluation performed on **1,600 independent test scans** from `data/Testing`:
 
 ```text
 NeuroScan-AI/
-├── app/                        # Root Next.js application routes and layouts
 ├── data/                       # Dataset directory (Training and Testing sets)
 │   ├── Training/               # Training partitions (glioma, meningioma, notumor, pituitary)
 │   └── Testing/                # Validation partitions (1,600 scans)
-├── frontend/                   # Standalone frontend workspace for Docker builds
-│   ├── app/                    # Frontend source code
-│   ├── Dockerfile              # Multi-stage Next.js standalone container definition
-│   └── package.json            # Node.js project manifest
-├── docker-compose.yml          # Container configuration for api, web, and nginx
+├── frontend/                   # Next.js 14 Web Application
+│   ├── app/                    # App Router source code (page.tsx, layout.tsx, globals.css)
+│   ├── public/                 # Static assets
+│   ├── Dockerfile              # Multi-stage standalone Next.js container definition
+│   ├── package.json            # Frontend dependencies
+│   ├── tailwind.config.ts      # Tailwind CSS configuration
+│   └── tsconfig.json           # TypeScript configuration
+├── docker-compose.yml          # Multi-container orchestration (api, web, nginx)
 ├── Dockerfile                  # FastAPI backend container definition
 ├── evaluate_model.py           # Evaluation script for accuracy, FPR, and confusion matrix
 ├── gradcam_inference.py        # Core PyTorch inference and Grad-CAM generation module
 ├── main.py                     # FastAPI backend application
 ├── nginx.conf                  # Nginx reverse proxy configuration
 ├── requirements.txt            # Python dependencies
-├── train.py                    # PyTorch model training and fine-tuning pipeline
-└── tsconfig.json               # TypeScript configuration
+└── train.py                    # PyTorch model training and fine-tuning pipeline
 ```
 
 ---
@@ -178,18 +179,23 @@ docker compose down
 ---
 
 ### Frontend Setup
+ 
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-1. Install Node.js dependencies:
+2. Install Node.js dependencies:
    ```bash
    npm install
    ```
 
-2. Start the Next.js development server:
+3. Start the Next.js development server:
    ```bash
    npm run dev
    ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your web browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your web browser.
 
 ---
 
