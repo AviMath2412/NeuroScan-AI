@@ -18,11 +18,13 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return {"message": "NeuroScan-AI API is running", "docs_url": "/docs", "health_check": "/health"}
+    return {"message": "NeuroScan-AI API is running", "docs_url": "/docs", "health_check": "/health", "ping": "/ping"}
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+@app.get("/health", status_code=200)
+@app.get("/ping", status_code=200)
+def ping():
+    """Ultra-lightweight endpoint for Render keep-alive pings and health checks."""
+    return {"status": "ok", "message": "pong"}
 
 @app.post("/api/predict")
 @app.post("/predict")
