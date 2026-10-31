@@ -64,6 +64,7 @@ pnpm-debug.log*
 # ==============================================================================
 # Model weights (large files)
 *.pth
+!best_model.pth
 *.pt
 *.h5
 *.ckpt

@@ -1,17 +1,34 @@
-FROM node:18-alpine
+FROM python:3.11-slim
+
+# Prevent Python from writing pyc files and buffering stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Install system dependencies required for OpenCV, PyTorch, and curl for health checks
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy package files and install ONLY production dependencies
-COPY package*.json ./
-RUN npm ci --omit=dev
+# Install Python dependencies using PyTorch CPU wheels for lightweight footprint
+COPY requirements.txt .
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
 
-# Copy the pre-built standalone files from your Mac
-COPY .next/standalone ./
-COPY public ./public
-COPY .next/static ./.next/static
+# Copy application files
+COPY . .
 
-EXPOSE 3000
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+# Expose default port
+EXPOSE 8000
+ENV PORT=8000
 
-CMD ["node", "server.js"]
+# Health check endpoint for container monitors
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/health || exit 1
+
+# Start uvicorn with dynamic port handling
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]

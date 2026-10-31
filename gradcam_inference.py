@@ -49,6 +49,19 @@ def load_model(weights_path: str = _MODEL_PATH) -> nn.Module:
     num_ftrs = model.fc.in_features
     model.fc = nn.Linear(num_ftrs, len(CLASSES))
 
+    if not os.path.exists(weights_path):
+        remote_url = os.getenv(
+            "MODEL_URL",
+            "https://huggingface.co/Ahmed-Selem/Shifaa-Brain-Tumor-ResNet18/resolve/main/braintumor_model_weights.pth"
+        )
+        logger.warning(f"Model file '{weights_path}' not found locally. Downloading from {remote_url}...")
+        try:
+            import urllib.request
+            urllib.request.urlretrieve(remote_url, weights_path)
+            logger.info(f"Successfully downloaded model weights to {weights_path}.")
+        except Exception as dl_err:
+            logger.error(f"Failed to download model weights: {dl_err}")
+
     if os.path.exists(weights_path):
         logger.info(f"Loading weights from {weights_path}...")
         try:
@@ -60,8 +73,7 @@ def load_model(weights_path: str = _MODEL_PATH) -> nn.Module:
             raise
     else:
         logger.warning(
-            f"Model weights file '{weights_path}' not found! "
-            "Please ensure best_model.pth exists in the application root."
+            f"Model weights file '{weights_path}' could not be loaded. Running with base weights."
         )
 
     model.to(DEVICE)
