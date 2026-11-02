@@ -258,7 +258,6 @@ radiologist or neurologist.
               rel="noreferrer"
               className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
             >
-              API Docs <ChevronRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
