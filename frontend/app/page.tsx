@@ -440,6 +440,7 @@ radiologist or neurologist.
                       </div>
                       <div className="aspect-square rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-200 shadow-inner">
                         {previewUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={previewUrl}
                             alt="Original MRI"
@@ -461,8 +462,13 @@ radiologist or neurologist.
                       </div>
                       <div className="aspect-square rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-200 shadow-inner relative group">
                         {result.heatmap_base64 && (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
-                            src={`data:image/jpeg;base64,${result.heatmap_base64}`}
+                            src={
+                              result.heatmap_base64.startsWith("data:")
+                                ? result.heatmap_base64
+                                : `data:image/jpeg;base64,${result.heatmap_base64}`
+                            }
                             alt="GradCAM Heatmap"
                             className="w-full h-full object-contain"
                           />
@@ -474,7 +480,7 @@ radiologist or neurologist.
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 flex items-start gap-2">
                     <Info className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
                     <span>
-                      The red and yellow regions represent high-activation areas that most influenced the convolutional network's tumor prediction.
+                      The red and yellow regions represent high-activation areas that most influenced the convolutional network&apos;s tumor prediction.
                     </span>
                   </div>
                 </div>
