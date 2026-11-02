@@ -246,8 +246,6 @@ radiologist or neurologist.
               <p className="text-xs text-slate-500 font-medium">Intelligent MRI Neuro-Oncology & Grad-CAM Suite</p>
             </div>
           </div>
-
-          </div>
         </div>
       </header>
 
