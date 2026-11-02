@@ -247,18 +247,6 @@ radiologist or neurologist.
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100/80 border border-slate-200 text-xs font-medium text-slate-600">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span>Backend Connected: 8000</span>
-            </div>
-            <a
-              href="http://localhost:8000/docs"
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
-            >
-            </a>
           </div>
         </div>
       </header>
